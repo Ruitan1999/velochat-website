@@ -89,29 +89,106 @@ const LandingHome = () => {
 const PrivacyPolicy = () => {
   return (
     <div className="text-page fade-in">
-      <div className="text-content-wrapper glass-card">
-        <h2>Privacy Policy</h2>
-        <p className="last-updated">Last Updated: March 2026</p>
+      <div className="text-content-wrapper glass-card doc-container">
+        <h2 style={{ marginBottom: '8px' }}>VeloChat Privacy Policy</h2>
+        <p style={{ color: 'var(--text-secondary)' }}><strong>Effective date:</strong> March 1, 2025</p>
+        <p className="last-updated" style={{ marginBottom: '24px' }}><strong>Last updated:</strong> March 1, 2025</p>
+
+        <p style={{ marginBottom: '32px', color: 'var(--text-secondary)', lineHeight: '1.6' }}>
+          VeloChat ("we", "our", or "the app") is a cycling community app for organizing rides and group chat. This Privacy Policy explains what data we collect, how we use it, and your choices.
+        </p>
 
         <div className="doc-section">
-          <h3>1. Information We Collect</h3>
-          <p>We collect information to provide better services to all our users. Information we collect includes basic account details, approximate location data for ride discovery, and your ride status preference (In/Out).</p>
+          <h3>1. Data We Collect</h3>
+
+          <h4 style={{ marginTop: '16px', marginBottom: '8px' }}>1.1 Account and profile</h4>
+          <ul style={{ marginLeft: '24px', marginBottom: '16px' }}>
+            <li><strong>Email address</strong> — Required to create an account and sign in (magic link).</li>
+            <li><strong>Name</strong> — Required at sign-up; used for your profile and shown to other users in rides and chats.</li>
+            <li><strong>Profile information</strong> — Optional: profile photo, short bio, and visibility setting (public/private). Stored on our servers.</li>
+          </ul>
+
+          <h4 style={{ marginBottom: '8px' }}>1.2 User-generated content</h4>
+          <ul style={{ marginLeft: '24px', marginBottom: '16px' }}>
+            <li><strong>Rides</strong> — Titles, dates, times, distances, location text (e.g. "Central Park"), and optional route files (GPX/FIT) you upload.</li>
+            <li><strong>Chat messages</strong> — Messages you send in ride and group chats.</li>
+            <li><strong>Clubs and connections</strong> — Club memberships, ride RSVPs, and friend connections.</li>
+          </ul>
+
+          <h4 style={{ marginBottom: '8px' }}>1.3 Device and app functionality</h4>
+          <ul style={{ marginLeft: '24px', marginBottom: '16px' }}>
+            <li><strong>Push notifications</strong> — We use OneSignal (and related services) to send push notifications (e.g. new chat messages, ride updates). This involves a device push token and linking it to your account. You can disable notifications in your device settings.</li>
+            <li><strong>Authentication</strong> — Session and auth data are stored on your device (e.g. via secure storage) to keep you signed in.</li>
+          </ul>
+
+          <h4 style={{ marginBottom: '8px' }}>1.4 Optional integrations</h4>
+          <ul style={{ marginLeft: '24px', marginBottom: '16px' }}>
+            <li><strong>Strava</strong> — If you connect Strava, we receive and store OAuth tokens and may access your Strava profile and activity/route data (as allowed by the Strava permissions you approve). We use this to let you import routes into VeloChat. Strava’s own privacy policy applies to data held by Strava.</li>
+          </ul>
+
+          <p>We do <strong>not</strong> collect precise device location (GPS) for "nearby rides" unless we clearly ask for location permission and describe that use in the app. Any "location" you enter for a ride is optional text (e.g. a place name), not automatic GPS.</p>
         </div>
 
         <div className="doc-section">
-          <h3>2. 24-Hour Message Deletion</h3>
-          <p>Velochat is designed for ephemeral coordination. All messages sent in chats are automatically and permanently deleted from our servers 24 hours after they are sent. We do not keep backups of expired messages.</p>
+          <h3>2. How We Use Your Data</h3>
+          <p style={{ marginBottom: '12px' }}>We use the data above to:</p>
+          <ul style={{ marginLeft: '24px', marginBottom: '16px' }}>
+            <li>Create and manage your account and profile.</li>
+            <li>Provide rides, clubs, and chat.</li>
+            <li>Send push notifications you’ve agreed to.</li>
+            <li>Store and display route files you upload or import (e.g. from Strava).</li>
+            <li>Operate, secure, and improve the app and our systems.</li>
+          </ul>
+          <p>We do not sell your personal data. We do not use your data for advertising or cross-app tracking.</p>
         </div>
 
         <div className="doc-section">
-          <h3>3. Data Sharing</h3>
-          <p>We do not sell your personal data. We only share data with third-party service providers necessary to operate the Velochat platform.</p>
+          <h3>3. Who We Share Data With</h3>
+          <ul style={{ marginLeft: '24px', marginBottom: '16px' }}>
+            <li><strong>Supabase</strong> — Our backend and database provider. Your account, profile, messages, rides, and files are stored and processed by Supabase (see <a href="https://supabase.com/privacy" target="_blank" rel="noreferrer" className="text-accent underline" style={{ color: 'var(--accent-primary)' }}>Supabase Privacy</a>).</li>
+            <li><strong>OneSignal</strong> — For sending push notifications (see <a href="https://onesignal.com/privacy_policy" target="_blank" rel="noreferrer" className="text-accent underline" style={{ color: 'var(--accent-primary)' }}>OneSignal Privacy</a>).</li>
+            <li><strong>Strava</strong> — Only if you choose to connect Strava; data sharing is limited to what you authorize in the Strava OAuth flow.</li>
+          </ul>
+          <p>We may also share data if required by law or to protect rights and safety.</p>
         </div>
 
         <div className="doc-section">
-          <h3>4. Contact Us</h3>
-          <p>If you have questions regarding this Privacy Policy, please contact us at support@velochat.example.com</p>
+          <h3>4. Data Retention and Deletion</h3>
+          <ul style={{ marginLeft: '24px', marginBottom: '16px' }}>
+            <li>We keep your data while your account is active.</li>
+            <li>You can delete or correct profile data (e.g. name, bio, photo) in the app.</li>
+            <li>To <strong>delete your account and associated data</strong>, contact us (see Section 8). After we verify your identity, we will delete your account and personal data from our systems within a reasonable period, except where we must retain data for legal or safety reasons.</li>
+          </ul>
         </div>
+
+        <div className="doc-section">
+          <h3>5. Security</h3>
+          <p>We use industry-standard measures (including encryption in transit, e.g. HTTPS) and access controls to protect your data. No system is completely secure; we encourage strong account security (e.g. keeping your email secure).</p>
+        </div>
+
+        <div className="doc-section">
+          <h3>6. Children</h3>
+          <p>VeloChat is not directed at children under 13. We do not knowingly collect personal data from children under 13. If you believe a child has provided us data, please contact us and we will delete it.</p>
+        </div>
+
+        <div className="doc-section">
+          <h3>7. Changes to This Policy</h3>
+          <p>We may update this Privacy Policy from time to time. We will post the updated policy and, where appropriate, notify you in the app or by email. Your continued use of the app after the effective date of changes constitutes acceptance of the updated policy.</p>
+        </div>
+
+        <div className="doc-section">
+          <h3>8. Contact</h3>
+          <p style={{ marginBottom: '12px' }}>For privacy-related requests (e.g. access, correction, deletion, or questions):</p>
+          <ul style={{ marginLeft: '24px', marginBottom: '16px' }}>
+            <li><strong>Email:</strong> <a href="mailto:support@velochat.example.com" className="text-accent underline" style={{ color: 'var(--accent-primary)' }}>support@velochat.example.com</a></li>
+            <li><strong>App / website:</strong> <Link to="/delete-account" className="text-accent underline" style={{ color: 'var(--accent-primary)' }}>Delete Account Page</Link></li>
+          </ul>
+          <p>If you are in the European Economic Area or UK, you may also have the right to lodge a complaint with your local data protection authority.</p>
+        </div>
+
+        <p style={{ color: 'var(--text-secondary)', fontSize: '14px', fontStyle: 'italic', marginTop: '40px' }}>
+          *This privacy policy applies to the VeloChat mobile application and related services.*
+        </p>
       </div>
     </div>
   );
