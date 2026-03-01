@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation, Link, Outlet } from 'react-router-dom';
-import { MessageSquare, Users, MapPin, Search, ChevronLeft, Send, CheckCircle2, XCircle, Clock, Navigation2, Camera, ExternalLink, Trash2, Zap, Bike } from 'lucide-react';
+import { MessageSquare, Users, MapPin, Search, ChevronLeft, Send, CheckCircle2, XCircle, Clock, Navigation2, Camera, Trash2, Zap, Bike } from 'lucide-react';
 import { format, differenceInHours } from 'date-fns';
 import clsx from 'clsx';
 import './App.css';
@@ -33,9 +33,6 @@ const LayoutMain = () => (
       <Link to="/" className="web-brand text-accent font-bold text-2xl">
         Velochat
       </Link>
-      <div className="web-links">
-        <Link to="/app" className="web-link highlight">Try The App</Link>
-      </div>
     </nav>
     <main className="web-main">
       <Outlet />
@@ -55,14 +52,12 @@ const LandingHome = () => {
     <div className="landing-page fade-in">
       <section className="hero-section text-center">
         <h1 className="hero-title">The Snapchat for Bike Rides</h1>
-        <p className="hero-subtitle">
+        <p className="hero-subtitle" style={{ marginBottom: '16px' }}>
           Instantly let your squad know if you are in or out. Messages vanish after 24 hours. Keep the peloton tight.
         </p>
-        <div className="hero-cta">
-          <Link to="/app" className="btn-primary btn-large">
-            Open Web Demo <ExternalLink className="icon-inline" size={18} />
-          </Link>
-        </div>
+        <p style={{ fontSize: '22px', fontWeight: 600, color: 'var(--accent-primary)' }}>
+          What happens on the ride, stays on the ride.
+        </p>
       </section>
 
       <section className="features-section grid">
