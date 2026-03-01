@@ -62,13 +62,7 @@ const LandingHome = () => {
         </p>
       </section>
 
-      <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '100px', padding: '0 20px' }}>
-        <img
-          src="/app-screenshot.png"
-          alt="Velochat App Screenshot"
-          style={{ width: '100%', maxWidth: '375px', borderRadius: '40px', boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }}
-        />
-      </div>
+
 
       <section className="features-section grid">
         <div className="feature-card">
