@@ -439,10 +439,7 @@
 }
 
 .nav-item.active {
-  color: var(--bg-primary);
-  background-color: var(--accent-primary);
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-accent);
+  color: var(--accent-primary);
 }
 
 .nav-label {

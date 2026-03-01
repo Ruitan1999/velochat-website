@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation, Link, Outlet } from 'react-router-dom';
-import { MessageSquare, Users, MapPin, Search, ChevronLeft, Send, CheckCircle2, XCircle, Clock, Navigation2, Camera, Trash2, Zap, Bike } from 'lucide-react';
+import { Users, MapPin, Search, ChevronLeft, Send, Clock, Camera, Trash2, Zap, Bike, MessageCircle, Shield, MoreVertical, Calendar, Check, X, ChevronRight, Plus } from 'lucide-react';
 import { format, differenceInHours } from 'date-fns';
 import clsx from 'clsx';
 import './App.css';
@@ -15,8 +15,10 @@ const MOCK_CLUBS = [
 ];
 
 const MOCK_RIDES = [
-  { id: 'r1', clubId: 'c1', title: 'Dawn Patrol: Hills', date: new Date(Date.now() + 86400000), distance: '45km', pace: '28km/h', status: 'IN', inCount: 12 },
-  { id: 'r2', clubId: 'c2', title: 'Recovery Cafe Ride', date: new Date(Date.now() + 172800000), distance: '30km', pace: '22km/h', status: 'UNDECIDED', inCount: 5 },
+  { id: 'r1', clubId: 'c1', title: 'Tomorrow big ride up the hill for a coffee', timestamp: 'Mon, 2 Mar', time: '6:00am', location: 'Narrows', status: 'IN', inCount: 1, outCount: 1, avatars: [currentUser.avatar] },
+  { id: 'r2', clubId: 'c2', title: 'Big one uphills', timestamp: 'Mon, 2 Mar', time: '6:00am', location: '', status: 'IN', inCount: 1, outCount: 0, avatars: [currentUser.avatar] },
+  { id: 'r3', clubId: 'c1', title: 'Gjvh', timestamp: 'Tue, 3 Mar', time: '5:45am', location: '', status: 'UNDECIDED', inCount: 0, outCount: 0, avatars: [] },
+  { id: 'r4', clubId: 'c3', title: 'Weekend Epic 100km', timestamp: 'Sat, 7 Mar', time: '7:00am', location: 'City Park', status: 'UNDECIDED', inCount: 8, outCount: 2, avatars: [] },
 ];
 
 const MOCK_CHATS = [
@@ -50,7 +52,7 @@ const LayoutMain = () => (
 const LandingHome = () => {
   return (
     <div className="landing-page fade-in">
-      <section className="hero-section text-center">
+      <section className="hero-section text-center" style={{ paddingBottom: '40px' }}>
         <h1 className="hero-title">The Snapchat for Bike Rides</h1>
         <p className="hero-subtitle" style={{ marginBottom: '16px' }}>
           Instantly let your squad know if you are in or out. Messages vanish after 24 hours. Keep the peloton tight.
@@ -59,6 +61,13 @@ const LandingHome = () => {
           What happens on the ride, stays on the ride.
         </p>
       </section>
+
+      <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '100px', padding: '0 20px' }}>
+        <div className="app-wrapper mobile-frame" style={{ height: '800px', width: '100%', maxWidth: '375px', overflow: 'hidden', position: 'relative', margin: '0 auto', backgroundColor: '#F1F5F9' }}>
+          <HomeRides />
+          <NavigationBar />
+        </div>
+      </div>
 
       <section className="features-section grid">
         <div className="feature-card">
@@ -217,9 +226,9 @@ const NavigationBar = () => {
   const location = useLocation();
 
   const navItems = [
-    { path: '/app', icon: MapPin, label: 'Rides' },
-    { path: '/app/clubs', icon: Users, label: 'Clubs' },
-    { path: '/app/chat', icon: MessageSquare, label: 'Chat' },
+    { path: '/app', icon: MessageCircle, label: 'Chats' },
+    { path: '/app/clubs', icon: Shield, label: 'Clubs' },
+    { path: '/app/riders', icon: Users, label: 'Riders' },
   ];
 
   return (
@@ -243,12 +252,12 @@ const NavigationBar = () => {
   );
 };
 
-const Header = ({ title, rightNode, onBack }: { title: string, rightNode?: React.ReactNode, onBack?: () => void }) => (
-  <header className="app-header">
+const Header = ({ titleNode, rightNode, onBack, className }: { titleNode: React.ReactNode, rightNode?: React.ReactNode, onBack?: () => void, className?: string }) => (
+  <header className={clsx("app-header", className)}>
     <div className="header-content">
       <div className="flex-center gap-2">
         {onBack && <button onClick={onBack} className="back-btn"><ChevronLeft size={24} /></button>}
-        <h1 className="header-title">{title}</h1>
+        {titleNode}
       </div>
       {rightNode}
     </div>
@@ -257,66 +266,93 @@ const Header = ({ title, rightNode, onBack }: { title: string, rightNode?: React
 
 const HomeRides = () => {
   const [rides, setRides] = useState(MOCK_RIDES);
-  const navigate = useNavigate();
 
   const toggleStatus = (id: string, newStatus: 'IN' | 'OUT') => {
     setRides(rides.map(r => {
       if (r.id === id) {
         let newCount = r.inCount;
-        if (r.status === newStatus) { newCount = newStatus === 'IN' ? r.inCount - 1 : r.inCount; }
-        else if (r.status === 'OUT' && newStatus === 'IN') { newCount = r.inCount + 1; }
-        else if (r.status === 'IN' && newStatus === 'OUT') { newCount = r.inCount - 1; }
-        else if (r.status === 'UNDECIDED' && newStatus === 'IN') { newCount = r.inCount + 1; }
+        let newOutCount = r.outCount;
 
-        return { ...r, status: r.status === newStatus ? 'UNDECIDED' : newStatus, inCount: newCount };
+        if (r.status === newStatus) {
+          // Deselect
+          if (newStatus === 'IN') newCount--;
+          if (newStatus === 'OUT') newOutCount--;
+          return { ...r, status: 'UNDECIDED', inCount: newCount, outCount: newOutCount };
+        } else {
+          // Select new
+          if (newStatus === 'IN') {
+            newCount++;
+            if (r.status === 'OUT') newOutCount--;
+          }
+          if (newStatus === 'OUT') {
+            newOutCount++;
+            if (r.status === 'IN') newCount--;
+          }
+          return { ...r, status: newStatus, inCount: newCount, outCount: newOutCount };
+        }
       }
       return r;
     }));
   };
 
   return (
-    <div className="page-container fade-in">
+    <div className="page-container fade-in" style={{ backgroundColor: '#F1F5F9' }}>
       <Header
-        title="Velochat"
-        onBack={() => navigate('/')}
-        rightNode={<div className="avatar-mini pulse-animation"><img src={currentUser.avatar} alt="Me" /></div>}
+        className="transparent-header"
+        titleNode={<h1 className="header-title" style={{ fontSize: '24px', letterSpacing: '-0.5px', background: 'none' }}><span style={{ color: '#3B82F6' }}>Velo</span><span style={{ color: '#000' }}>Chat</span></h1>}
+        rightNode={<img src={currentUser.avatar} alt="Me" style={{ width: 36, height: 36, borderRadius: '50%', objectFit: 'cover' }} />}
       />
 
-      <div className="content-scrollable with-nav-padding">
-        <h2 className="section-title">Upcoming Drops</h2>
-
-        <div className="rides-list">
+      <div className="content-scrollable with-nav-padding" style={{ padding: '0 16px', position: 'relative' }}>
+        <div className="rides-list" style={{ paddingTop: '16px' }}>
           {rides.map(ride => (
-            <div key={ride.id} className="ride-card glass-panel">
-              <div className="ride-header">
-                <div>
-                  <h3 className="ride-title">{ride.title}</h3>
-                  <p className="ride-meta">{format(ride.date, 'MMM do, p')} • {ride.distance}</p>
-                </div>
-                <div className="ride-stats">
-                  <span className="in-count"><Navigation2 size={14} className="icon-inline" /> {ride.inCount} IN</span>
-                </div>
+            <div key={ride.id} className="ride-card fade-in" style={{ backgroundColor: '#fff', borderRadius: '24px', padding: '20px', marginBottom: '16px', boxShadow: '0 2px 10px rgba(0,0,0,0.05)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
+                <h3 style={{ fontSize: '20px', fontWeight: 700, lineHeight: '1.2', color: '#000', paddingRight: '16px' }}>{ride.title}</h3>
+                <button style={{ color: '#a1a1aa', border: 'none', background: 'none', padding: 0, cursor: 'pointer' }}><MoreVertical size={20} /></button>
               </div>
 
-              <div className="ride-actions">
+              <div style={{ display: 'flex', gap: '12px', fontSize: '13px', color: '#a1a1aa', marginBottom: '20px', alignItems: 'center' }}>
+                <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><Calendar size={14} /> {ride.timestamp}</span>
+                <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><Clock size={14} /> {ride.time}</span>
+                {ride.location && <span style={{ display: 'flex', alignItems: 'center', gap: '4px' }}><MapPin size={14} /> {ride.location}</span>}
+              </div>
+
+              <div style={{ display: 'flex', gap: '12px', marginBottom: '16px' }}>
                 <button
-                  className={clsx('action-btn btn-in', ride.status === 'IN' && 'active')}
+                  style={{ flex: 1, padding: '12px', borderRadius: '99px', fontSize: '15px', fontWeight: 600, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '6px', cursor: 'pointer', transition: 'all 0.2s', backgroundColor: ride.status === 'IN' ? '#3B82F6' : '#fff', color: ride.status === 'IN' ? '#fff' : '#3B82F6', border: ride.status === 'IN' ? '1px solid #3B82F6' : '1px solid #e2e8f0' }}
                   onClick={() => toggleStatus(ride.id, 'IN')}
                 >
-                  <CheckCircle2 size={24} />
-                  <span>I'm In</span>
+                  {ride.status === 'IN' && <Check size={16} />} <span>I'm In {ride.inCount > 0 ? `· ${ride.inCount}` : ''}</span>
                 </button>
                 <button
-                  className={clsx('action-btn btn-out', ride.status === 'OUT' && 'active')}
+                  style={{ flex: 1, padding: '12px', borderRadius: '99px', fontSize: '15px', fontWeight: 600, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '6px', cursor: 'pointer', transition: 'all 0.2s', backgroundColor: ride.status === 'OUT' ? '#f8fafc' : '#fff', color: '#94a3b8', border: '1px solid #e2e8f0' }}
                   onClick={() => toggleStatus(ride.id, 'OUT')}
                 >
-                  <XCircle size={24} />
-                  <span>I'm Out</span>
+                  {ride.status === 'OUT' && <X size={16} />} <span style={{ color: ride.status === 'OUT' ? '#64748b' : 'inherit' }}>I'm Out {ride.outCount > 0 ? `· ${ride.outCount}` : ''}</span>
                 </button>
+              </div>
+
+              <button style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 16px', borderRadius: '99px', border: '1px solid #e2e8f0', backgroundColor: '#fff', cursor: 'pointer', marginBottom: '16px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#18181b', fontWeight: 500 }}>
+                  <MessageCircle size={18} style={{ color: '#64748b' }} /> Ride Chat
+                </div>
+                <ChevronRight size={18} style={{ color: '#cbd5e1' }} />
+              </button>
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', paddingTop: '16px', borderTop: '1px solid #f8fafc' }}>
+                {ride.avatars.map((av, idx) => (
+                  <img key={idx} src={av} alt="Avatar" style={{ width: '28px', height: '28px', borderRadius: '50%', objectFit: 'cover' }} />
+                ))}
+                {ride.avatars.length > 0 && <span style={{ fontSize: '14px', color: '#94a3b8' }}>You</span>}
               </div>
             </div>
           ))}
         </div>
+
+        <button style={{ position: 'fixed', bottom: '90px', right: '20px', backgroundColor: '#3B82F6', color: '#fff', borderRadius: '99px', padding: '14px 24px', fontSize: '16px', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', boxShadow: '0 4px 14px rgba(59, 130, 246, 0.4)', zIndex: 40, border: 'none' }}>
+          <Plus size={20} /> Post Ride
+        </button>
       </div>
     </div>
   );
@@ -331,7 +367,7 @@ const ClubsList = () => {
 
   return (
     <div className="page-container fade-in">
-      <Header title="Clubs" rightNode={<Search size={24} className="text-secondary" />} />
+      <Header titleNode={<h1 className="header-title" style={{ fontSize: '24px' }}>Clubs</h1>} rightNode={<Search size={24} className="text-secondary" />} />
 
       <div className="content-scrollable with-nav-padding">
         <div className="clubs-grid">
@@ -385,7 +421,7 @@ const ChatView = () => {
   return (
     <div className="page-container fade-in">
       <Header
-        title="Squad Chat"
+        titleNode={<h1 className="header-title" style={{ fontSize: '24px' }}>Squad Chat</h1>}
         rightNode={<div className="timer-badge"><Clock size={14} className="icon-inline" /> 24h</div>}
       />
 
