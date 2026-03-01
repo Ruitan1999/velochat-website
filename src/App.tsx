@@ -32,8 +32,8 @@ const MOCK_CHATS = [
 const LayoutMain = () => (
   <div className="web-layout">
     <nav className="web-nav">
-      <Link to="/" className="web-brand text-accent font-bold text-2xl">
-        Velochat
+      <Link to="/" className="web-brand" style={{ display: 'flex', alignItems: 'center' }}>
+        <img src="/logo-text.jpg" alt="VeloChat" style={{ height: '36px' }} />
       </Link>
     </nav>
     <main className="web-main">
