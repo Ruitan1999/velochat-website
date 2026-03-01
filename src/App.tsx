@@ -32,8 +32,8 @@ const MOCK_CHATS = [
 const LayoutMain = () => (
   <div className="web-layout">
     <nav className="web-nav">
-      <Link to="/" className="web-brand" style={{ display: 'flex', alignItems: 'center' }}>
-        <img src="/logo-text.jpg" alt="VeloChat" style={{ height: '36px' }} />
+      <Link to="/" className="web-brand text-accent font-bold text-2xl" style={{ display: 'flex', alignItems: 'center', fontSize: '28px', letterSpacing: '-0.5px', textDecoration: 'none' }}>
+        <span style={{ color: 'var(--accent-primary)' }}>Velo</span><span style={{ color: 'var(--text-primary)' }}>Chat</span>
       </Link>
     </nav>
     <main className="web-main">
