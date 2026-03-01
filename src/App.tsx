@@ -100,12 +100,12 @@ const PrivacyPolicy = () => {
           <ul style={{ marginLeft: '24px', marginBottom: '16px' }}>
             <li><strong>Email address</strong> — Required to create an account and sign in (magic link).</li>
             <li><strong>Name</strong> — Required at sign-up; used for your profile and shown to other users in rides and chats.</li>
-            <li><strong>Profile information</strong> — Optional: profile photo, short bio, and visibility setting (public/private). Stored on our servers.</li>
+            <li><strong>Profile information</strong> — Optional: profile photo, and visibility setting (public/private). Stored on our servers.</li>
           </ul>
 
           <h4 style={{ marginBottom: '8px' }}>1.2 User-generated content</h4>
           <ul style={{ marginLeft: '24px', marginBottom: '16px' }}>
-            <li><strong>Rides</strong> — Titles, dates, times, distances, location text (e.g. "Central Park"), and optional route files (GPX/FIT) you upload.</li>
+            <li><strong>Rides</strong> — Titles, dates, times, distances, location text (e.g. "Central Park").</li>
             <li><strong>Chat messages</strong> — Messages you send in ride and group chats.</li>
             <li><strong>Clubs and connections</strong> — Club memberships, ride RSVPs, and friend connections.</li>
           </ul>
@@ -117,10 +117,6 @@ const PrivacyPolicy = () => {
           </ul>
 
           <h4 style={{ marginBottom: '8px' }}>1.4 Optional integrations</h4>
-          <ul style={{ marginLeft: '24px', marginBottom: '16px' }}>
-            <li><strong>Strava</strong> — If you connect Strava, we receive and store OAuth tokens and may access your Strava profile and activity/route data (as allowed by the Strava permissions you approve). We use this to let you import routes into VeloChat. Strava’s own privacy policy applies to data held by Strava.</li>
-          </ul>
-
           <p>We do <strong>not</strong> collect precise device location (GPS) for "nearby rides" unless we clearly ask for location permission and describe that use in the app. Any "location" you enter for a ride is optional text (e.g. a place name), not automatic GPS.</p>
         </div>
 
@@ -131,7 +127,6 @@ const PrivacyPolicy = () => {
             <li>Create and manage your account and profile.</li>
             <li>Provide rides, clubs, and chat.</li>
             <li>Send push notifications you’ve agreed to.</li>
-            <li>Store and display route files you upload or import (e.g. from Strava).</li>
             <li>Operate, secure, and improve the app and our systems.</li>
           </ul>
           <p>We do not sell your personal data. We do not use your data for advertising or cross-app tracking.</p>
@@ -142,7 +137,6 @@ const PrivacyPolicy = () => {
           <ul style={{ marginLeft: '24px', marginBottom: '16px' }}>
             <li><strong>Supabase</strong> — Our backend and database provider. Your account, profile, messages, rides, and files are stored and processed by Supabase (see <a href="https://supabase.com/privacy" target="_blank" rel="noreferrer" className="text-accent underline" style={{ color: 'var(--accent-primary)' }}>Supabase Privacy</a>).</li>
             <li><strong>OneSignal</strong> — For sending push notifications (see <a href="https://onesignal.com/privacy_policy" target="_blank" rel="noreferrer" className="text-accent underline" style={{ color: 'var(--accent-primary)' }}>OneSignal Privacy</a>).</li>
-            <li><strong>Strava</strong> — Only if you choose to connect Strava; data sharing is limited to what you authorize in the Strava OAuth flow.</li>
           </ul>
           <p>We may also share data if required by law or to protect rights and safety.</p>
         </div>
@@ -151,7 +145,7 @@ const PrivacyPolicy = () => {
           <h3>4. Data Retention and Deletion</h3>
           <ul style={{ marginLeft: '24px', marginBottom: '16px' }}>
             <li>We keep your data while your account is active.</li>
-            <li>You can delete or correct profile data (e.g. name, bio, photo) in the app.</li>
+            <li>You can delete or correct profile data (e.g. name, photo) in the app.</li>
             <li>To <strong>delete your account and associated data</strong>, contact us (see Section 8). After we verify your identity, we will delete your account and personal data from our systems within a reasonable period, except where we must retain data for legal or safety reasons.</li>
           </ul>
         </div>
@@ -175,8 +169,8 @@ const PrivacyPolicy = () => {
           <h3>8. Contact</h3>
           <p style={{ marginBottom: '12px' }}>For privacy-related requests (e.g. access, correction, deletion, or questions):</p>
           <ul style={{ marginLeft: '24px', marginBottom: '16px' }}>
-            <li><strong>Email:</strong> <a href="mailto:support@velochat.example.com" className="text-accent underline" style={{ color: 'var(--accent-primary)' }}>support@velochat.example.com</a></li>
-            <li><strong>App / website:</strong> <Link to="/delete-account" className="text-accent underline" style={{ color: 'var(--accent-primary)' }}>Delete Account Page</Link></li>
+            <li><strong>Email:</strong> <a href="mailto:Ruitan1520@gmail.com" className="text-accent underline" style={{ color: 'var(--accent-primary)' }}>Ruitan1520@gmail.com</a></li>
+            <li><strong>App / website:</strong> <a href="https://velochat-website.vercel.app/" className="text-accent underline" style={{ color: 'var(--accent-primary)' }}>https://velochat-website.vercel.app/</a></li>
           </ul>
           <p>If you are in the European Economic Area or UK, you may also have the right to lodge a complaint with your local data protection authority.</p>
         </div>
