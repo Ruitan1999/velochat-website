@@ -127,15 +127,17 @@ const DeleteAccount = () => {
           Warning: Requesting account deletion will permanently remove your profile, clubs memberships, and active ride statuses from Velochat immediately.
         </p>
 
-        <form className="delete-form" onSubmit={(e) => { e.preventDefault(); alert("Mock: Request to delete account submitted."); }}>
-          <div className="input-group">
-            <label>Confirm Email or Username</label>
-            <input type="text" placeholder="Enter email/username" required className="web-input" />
-          </div>
-          <button type="submit" className="btn-danger w-full mt-4">
-            Permanently Delete Account
-          </button>
-        </form>
+        <p className="text-secondary mb-6 text-sm">
+          To delete your account, please send us an email with your username or email address. We will process your request within 48 hours.
+        </p>
+
+        <a
+          href="mailto:your-email@example.com?subject=Velochat%20Account%20Deletion%20Request&body=Please%20delete%20my%20Velochat%20account.%0A%0AUsername/Email:%20"
+          className="btn-danger w-full mt-4 flex-center justify-center text-center pb-3 pt-3"
+          style={{ display: 'flex', textDecoration: 'none' }}
+        >
+          Send Deletion Request Email
+        </a>
       </div>
     </div>
   );
