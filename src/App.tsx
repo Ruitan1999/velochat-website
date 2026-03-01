@@ -63,10 +63,11 @@ const LandingHome = () => {
       </section>
 
       <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '100px', padding: '0 20px' }}>
-        <div className="app-wrapper mobile-frame" style={{ height: '800px', width: '100%', maxWidth: '375px', overflow: 'hidden', position: 'relative', margin: '0 auto', backgroundColor: '#F1F5F9' }}>
-          <HomeRides />
-          <NavigationBar />
-        </div>
+        <img
+          src="/app-screenshot.png"
+          alt="Velochat App Screenshot"
+          style={{ width: '100%', maxWidth: '375px', borderRadius: '40px', boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }}
+        />
       </div>
 
       <section className="features-section grid">
